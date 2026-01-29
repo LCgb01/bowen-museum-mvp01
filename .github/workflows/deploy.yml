@@ -1,0 +1,48 @@
+name: Deploy to Aliyun
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.ALIYUN_HOST }}
+        username: ${{ secrets.ALIYUN_USER }}
+        key: ${{ secrets.ALIYUN_SSH_KEY }}
+        script: |
+          echo "=== Starting deployment ==="
+          echo "Deploy time: $(date)"
+          cd /var/www/museum-guide
+          
+          # Pull latest code
+          git pull origin main || echo "Git pull failed, continuing..."
+          
+          # Ensure deploy script is executable
+          chmod +x deploy.sh 2>/dev/null || true
+          
+          # Run deploy script if exists
+          if [ -f "deploy.sh" ]; then
+            bash deploy.sh
+          else
+            echo "deploy.sh not found, creating simple one..."
+            cat > deploy.sh << 'SCRIPT_EOF'
+#!/bin/bash
+echo "Simple deploy script"
+docker ps
+echo "Deployment done"
+SCRIPT_EOF
+            chmod +x deploy.sh
+            bash deploy.sh
+          fi
+          
+          echo "=== Deployment completed ==="

@@ -1,0 +1,23 @@
+name: Test Connection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Test SSH Connection
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.ALIYUN_HOST }}
+        username: ${{ secrets.ALIYUN_USER }}
+        key: ${{ secrets.ALIYUN_SSH_KEY }}
+        script: |
+          echo "=== Connection Test ==="
+          echo "Test time: $(date)"
+          echo "Hostname: $(hostname)"
+          echo "IP: $(hostname -I)"
+          echo "Uptime: $(uptime)"
+          echo "=== Test Successful ==="

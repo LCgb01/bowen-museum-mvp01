@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>博闻AI博物馆系统</title>
+    <meta charset="UTF-8">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 40px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 { color: white; text-align: center; }
+        .status { 
+            background: #4CAF50; 
+            color: white; 
+            padding: 15px; 
+            border-radius: 8px; 
+            text-align: center;
+            margin: 20px 0;
+        }
+        .info-box {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        .endpoint {
+            background: rgba(255,255,255,0.2);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 博物馆AI导览系统</h1>
+        
+        <div class="status">
+            ✅ 系统状态：阿里云服务器运行正常
+        </div>
+        
+        <div class="info-box">
+            <h3>服务器信息</h3>
+            <p><strong>IP地址：</strong> 8.163.20.239</p>
+            <p><strong>端口：</strong> 8080</p>
+            <p><strong>部署时间：</strong> <span id="time"></span></p>
+            <p><strong>服务器：</strong> 阿里云ECS</p>
+        </div>
+        
+        <div class="info-box">
+            <h3>访问地址</h3>
+            <div class="endpoint">
+                🌐 前端页面：<a href="http://8.163.20.239:8080" style="color: #93c5fd;">http://8.163.20.239:8080</a>
+            </div>
+            <div class="endpoint">
+                ⚙️ API接口：<a href="http://8.163.20.239:8000" style="color: #93c5fd;">http://8.163.20.239:8000</a>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3>下一步操作</h3>
+            <p>1. 将SSH公钥添加到GitHub</p>
+            <p>2. 配置GitHub Actions自动化部署</p>
+            <p>3. 部署完整的博物馆AI系统</p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString('zh-CN');
+    </script>
+</body>
+</html>
