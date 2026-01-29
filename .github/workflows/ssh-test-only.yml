@@ -1,0 +1,27 @@
+name: SSH Test Only
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test SSH Connection
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ALIYUN_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          echo "=== 开始SSH连接测试 ==="
+          echo "目标主机: ${{ secrets.ALIYUN_HOST }}"
+          echo "用户: ${{ secrets.ALIYUN_USER }}"
+          
+          # 测试连接，只执行简单的echo命令
+          ssh -o StrictHostKeyChecking=no \
+              -o ConnectTimeout=30 \
+              -o BatchMode=yes \
+              -i ~/.ssh/id_rsa \
+              ${{ secrets.ALIYUN_USER }}@${{ secrets.ALIYUN_HOST }} "echo '✅ GitHub Actions SSH连接成功！'; hostname; date"
+          
+          echo "=== 测试完成 ==="
