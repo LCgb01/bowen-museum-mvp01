@@ -1,0 +1,20 @@
+name: Simple Connection Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test SSH Connection
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ALIYUN_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          echo "测试SSH连接..."
+          ssh -o StrictHostKeyChecking=no \
+              -o ConnectTimeout=10 \
+              -i ~/.ssh/id_rsa \
+              ${{ secrets.ALIYUN_USER }}@${{ secrets.ALIYUN_HOST }} "echo '✅ SSH连接成功'; date; hostname"
