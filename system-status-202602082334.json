@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-02-08T23:34:23+08:00",
+  "system": {
+    "cpu": "3.2%",
+    "memory": "14.39%",
+    "disk": "38%"
+  },
+  "services": {
+    "backend": "000down",
+    "frontend": "200"
+  },
+  "containers": {
+    "backend": "running",
+    "frontend": "running"
+  },
+  "ai_service": ""
+}
